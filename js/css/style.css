@@ -1,0 +1,199 @@
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #fdf2f4; /* Soft light pink background */
+  color: #333333;
+  overflow-x: hidden;
+}
+
+.mobile-topbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+#sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  z-index: 1045;
+}
+
+#sidebar .nav-link {
+  color: #495057;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+#sidebar .nav-link:hover {
+  background-color: rgba(214, 51, 132, 0.08);
+  color: #d63384;
+  transform: translateX(3px);
+}
+
+#sidebar .nav-link.active {
+  background-color: #d63384;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(214, 51, 132, 0.3);
+}
+
+#content {
+  background-color: #fdf2f4; /* Matches soft light pink background */
+  min-height: 100vh;
+  width: calc(100% - 260px);
+}
+
+.card {
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.07);
+}
+
+.col-xl-3 .card:hover, .col-md-4 .card:hover {
+  transform: translateY(-3px);
+}
+
+.table th {
+  font-weight: 600;
+  color: #6c757d;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.form-select-sm {
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-select-sm:focus {
+  border-color: #f8d7da;
+  box-shadow: 0 0 0 0.25rem rgba(214, 51, 132, 0.25);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fdf2f4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2a0b0;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d63384;
+}
+
+body, .mobile-topbar, #content, .card, .table, .form-control, .form-select {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-bs-theme="dark"] body, 
+[data-bs-theme="dark"] #content {
+  background-color: #121212 !important;
+  color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .mobile-topbar {
+  background-color: #1e1e1e !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-bs-theme="dark"] #sidebar {
+  background-color: #1e1e1e !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-bs-theme="dark"] #sidebar .nav-link {
+  color: #adb5bd;
+}
+
+[data-bs-theme="dark"] #sidebar .nav-link:hover {
+  background-color: rgba(214, 51, 132, 0.15);
+  color: #f783ac;
+}
+
+[data-bs-theme="dark"] #sidebar .nav-link.active {
+  background-color: #d63384;
+  color: #ffffff;
+}
+
+[data-bs-theme="dark"] .card {
+  background-color: #1e1e1e !important;
+  color: #f8f9fa !important;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-bs-theme="dark"] .card-header.bg-white {
+  background-color: #1e1e1e !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-bs-theme="dark"] .table {
+  color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .table-light {
+  background-color: #2c2c2c !important;
+  color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+  background-color: #252525 !important;
+}
+
+[data-bs-theme="dark"] .text-muted {
+  color: #adb5bd !important;
+}
+
+[data-bs-theme="dark"] .text-dark {
+  color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-dark,
+[data-bs-theme="dark"] .btn-outline-secondary {
+  color: #f8f9fa !important;
+  border-color: #6c757d !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-dark:hover,
+[data-bs-theme="dark"] .btn-outline-secondary:hover {
+  background-color: #343a40 !important;
+}
+
+@media (max-width: 991.98px) {
+  #sidebar {
+    width: 270px !important;
+    max-width: 82vw;
+    min-height: 100vh !important;
+  }
+  #content {
+    width: 100% !important;
+    padding: 1rem !important;
+  }
+}

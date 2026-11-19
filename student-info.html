@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Info - Student Performance Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="js/css/style.css">
+  <link rel="icon" type="image/png" href="images/icon.png">
+</head>
+<body>
+
+  <!-- Mobile Top Header Bar -->
+  <header class="mobile-topbar d-flex d-lg-none justify-content-between align-items-center px-3 py-2 sticky-top shadow-sm">
+    <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-5"></i>
+    </button>
+    <span class="fw-bold small text-uppercase text-secondary">COMET Tracker</span>
+    <span class="badge bg-primary">Active</span>
+  </header>
+
+  <div class="d-flex">
+    <!-- Profile Photo Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content bg-transparent border-0">
+          <div class="modal-body text-center position-relative p-0">
+            <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3 bg-white p-2 rounded-circle shadow" data-bs-dismiss="modal" aria-label="Close"></button>
+            <img src="images/profile.jpg" alt="Aliy Aiman Large Profile" class="img-fluid rounded-4 shadow-lg border border-3 border-white" style="max-height: 400px; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reusable Category Edit Modal -->
+    <div class="modal fade" id="sectionEditModal" tabindex="-1" aria-labelledby="sectionEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header bg-light">
+            <h5 class="modal-title fw-bold" id="sectionEditModalLabel">Edit Section</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="section-edit-form">
+              <div id="section-edit-fields" class="row g-3">
+                <!-- Populated dynamically per category by js/app.js -->
+              </div>
+              <div class="d-flex gap-2 mt-4">
+                <button type="button" class="btn btn-outline-secondary btn-sm w-50" id="reset-section-btn">Reset Section</button>
+                <button type="submit" class="btn btn-primary btn-sm w-50 fw-bold">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Responsive Sidebar -->
+    <nav id="sidebar" class="offcanvas-lg offcanvas-start p-3 d-flex flex-column shadow-sm" tabindex="-1" aria-labelledby="sidebarLabel">
+      <div class="d-flex justify-content-between align-items-center d-lg-none pb-2 mb-2 border-bottom">
+        <span class="fw-bold small text-uppercase text-secondary" id="sidebarLabel">Navigation</span>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+      </div>
+
+      <div class="text-center pb-3 border-bottom border-dark border-opacity-10">
+        <p class="small fw-bold text-uppercase mb-2 text-secondary" style="font-size: 0.75rem;">Student Performance Tracker<br>COMET</p>
+        <div class="bg-white rounded-circle p-1 d-inline-block shadow-sm mb-2" style="width: 75px; height: 75px;">
+          <img src="images/profile.jpg" alt="Aliy Aiman Profile Picture" class="rounded-circle w-100 h-100" style="object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#profileModal" title="Click to view larger">
+        </div>
+        <h6 class="fw-bold mb-0 text-dark">Aliy Aiman</h6>
+        <p class="text-muted small mb-0">2026117415</p>
+        <p class="text-muted small mb-0">UNIVERSITI TEKNOLOGI MARA (UITM)</p>
+      </div>
+
+      <div class="py-3 overflow-y-auto">
+        <p class="text-muted small fw-bold px-2 mb-2" style="font-size: 0.7rem;">Main Menu</p>
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-house-fill me-2"></i> Home page</a></li>
+          <li class="nav-item"><a class="nav-link active" href="student-info.html"><i class="bi bi-people-fill me-2"></i> Student Info</a></li>
+          <li class="nav-item"><a class="nav-link" href="courses.html"><i class="bi bi-journal-text me-2"></i> Academic Info</a></li>
+          <li class="nav-item"><a class="nav-link" href="schedule.html"><i class="bi bi-calendar-event-fill me-2"></i> My Schedule</a></li>
+          <li class="nav-item"><a class="nav-link" href="events.html"><i class="bi bi-star-fill me-2"></i> Events & Achievements</a></li>
+          <li class="nav-item"><a class="nav-link" href="assignments.html"><i class="bi bi-card-checklist me-2"></i> Task & Test</a></li>
+          <li class="nav-item"><a class="nav-link" href="financial.html"><i class="bi bi-cash-coin me-2"></i> Financial Status</a></li>
+        </ul>
+      </div>
+
+      <div class="mt-auto pt-3 border-top border-dark border-opacity-10">
+        <a href="index.html" class="btn btn-outline-dark btn-sm w-100"><i class="bi bi-box-arrow-right me-1"></i> Logout</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="content" class="p-4 flex-grow-1">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <div>
+          <h2 class="h3 fw-bold mb-0">Student Information</h2>
+          <p class="text-muted small mb-0">Digital matric card, academic enrollment, and personal records</p>
+        </div>
+        
+        <div class="d-flex align-items-center gap-2">
+          <button id="theme-toggle" class="btn btn-outline-secondary btn-sm d-flex align-items-center">
+            <i class="bi bi-moon-fill me-1" id="theme-icon"></i>
+            <span id="theme-text">Dark Mode</span>
+          </button>
+          <span class="badge bg-success px-3 py-2">Active Student</span>
+        </div>
+      </div>
+
+      <!-- Top Row: Digital Matric Card + Degree Credit Progress -->
+      <div class="row g-4 mb-4">
+        <!-- Digital e-Matric Card -->
+        <div class="col-12 col-lg-5">
+          <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden" style="background: linear-gradient(135deg, #4a154b 0%, #8e24aa 100%); color: #ffffff;">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <span class="badge bg-warning text-dark fw-bold mb-1">e-MATRIC CARD</span>
+                  <h6 class="fw-bold mb-0 opacity-75">UNIVERSITI TEKNOLOGI MARA</h6>
+                </div>
+                <i class="bi bi-upc-scan fs-2 opacity-75"></i>
+              </div>
+
+              <div class="d-flex align-items-center my-2">
+                <img src="images/profile.jpg" alt="Aliy Aiman" class="rounded-3 border border-2 border-white shadow-sm me-3" style="width: 72px; height: 85px; object-fit: cover;">
+                <div>
+                  <h5 class="fw-bold mb-1 text-white" id="card-display-name">ALIY AIMAN</h5>
+                  <p class="mb-1 small opacity-75">Programme: <strong id="card-display-prog">SI262</strong> (<span id="card-display-sem">Sem 4</span>)</p>
+                  <p class="mb-0 small opacity-75" id="card-display-campus">UiTM Puncak Perdana</p>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center pt-3 mt-2 border-top border-white border-opacity-25">
+                <div>
+                  <span class="d-block opacity-75" style="font-size: 0.7rem;">MATRIC NUMBER</span>
+                  <span class="fw-bold fs-5 font-monospace" id="matric-id-text">2026117415</span>
+                </div>
+                <button type="button" class="btn btn-light btn-sm fw-semibold" id="copy-matric-btn">
+                  <i class="bi bi-clipboard me-1"></i> Copy ID
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Degree Credit Progress & Advisor Card -->
+        <div class="col-12 col-lg-7">
+          <div class="card border-0 shadow-sm rounded-3 h-100">
+            <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+              <h5 class="fw-bold mb-0"><i class="bi bi-bar-chart-steps text-primary me-2"></i>Degree Credit Progression (SI262)</h5>
+              <span class="badge bg-primary bg-opacity-10 text-primary">64 / 120 Credits</span>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between small mb-1">
+                  <span class="text-muted">Overall Completion (Including Diploma Credit Transfer)</span>
+                  <span class="fw-bold text-primary">53%</span>
+                </div>
+                <div class="progress mb-3" style="height: 12px;">
+                  <div class="progress-bar bg-secondary" role="progressbar" style="width: 18%" title="Exempted: 21 Credits"></div>
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 17%" title="Sem 3 Earned: 21 Credits"></div>
+                  <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 18%" title="Sem 4 Current: 22 Credits"></div>
+                </div>
+                <div class="d-flex flex-wrap gap-3 small text-muted mb-3">
+                  <span><i class="bi bi-square-fill text-secondary me-1"></i>Exempted (Sem 1–2): 21 Cr</span>
+                  <span><i class="bi bi-square-fill text-success me-1"></i>Earned (Sem 3): 21 Cr</span>
+                  <span><i class="bi bi-square-fill text-primary me-1"></i>In Progress (Sem 4): 22 Cr</span>
+                </div>
+              </div>
+
+              <!-- Academic Advisor Section with Individual Edit Button -->
+              <div class="p-3 bg-light rounded-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div>
+                  <span class="text-muted small d-block">Academic Advisor (Penasihat Akademik)</span>
+                  <strong id="display-advisor">Dr. Norhayati binti Hussin</strong>
+                  <span class="text-muted small d-block" id="display-advisorEmail">norhayati@uitm.edu.my</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <button type="button" class="btn btn-outline-secondary btn-sm" data-edit-section="advisor">
+                    <i class="bi bi-pencil me-1"></i> Edit
+                  </button>
+                  <a href="mailto:norhayati@uitm.edu.my" id="advisor-mailto-btn" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-envelope-fill me-1"></i> Email
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Row: Personal Particulars & Current Academic Enrollment -->
+      <div class="row g-4 mb-4">
+        <!-- Category 1: Personal & Contact Particulars -->
+        <div class="col-12 col-lg-6">
+          <div class="card border-0 shadow-sm rounded-3 h-100">
+            <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+              <h5 class="fw-bold mb-0"><i class="bi bi-person-badge text-primary me-2"></i>Personal & Contact Particulars</h5>
+              <button type="button" class="btn btn-outline-primary btn-sm" data-edit-section="personal">
+                <i class="bi bi-pencil me-1"></i> Edit
+              </button>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item d-flex justify-content-between py-2">
+                  <span class="text-muted">Full Name</span>
+                  <span class="fw-bold" id="display-fullName">Aliy Aiman</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-2">
+                  <span class="text-muted">Age / Gender</span>
+                  <span class="fw-bold" id="display-ageGender">21 Years Old / Male</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-2">
+                  <span class="text-muted">Hometown</span>
+                  <span class="fw-bold" id="display-hometown">Beaufort, Sabah</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-2">
+                  <span class="text-muted">Phone Number</span>
+                  <span class="fw-bold" id="display-phone">+60 11-2345 6789</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-2">
+                  <span class="text-muted">Student Email</span>
+                  <span class="fw-bold" id="display-email">2026117415@student.uitm.edu.my</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-2">
+                  <span class="text-muted">Current Residency</span>
+                  <span class="fw-bold text-end" id="display-residency">Kolej Jasmine, UiTM Puncak Perdana</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-2">
+                  <span class="text-muted">Emergency Contact</span>
+                  <span class="fw-bold text-end" id="display-emergency">Aiman Bin Abdullah (+60 13-876 5432)</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 2: Current Academic Enrollment -->
+        <div class="col-12 col-lg-6">
+          <div class="card border-0 shadow-sm rounded-3 h-100">
+            <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+              <h5 class="fw-bold mb-0"><i class="bi bi-mortarboard text-success me-2"></i>Current Academic Enrollment</h5>
+              <button type="button" class="btn btn-outline-success btn-sm" data-edit-section="academic">
+                <i class="bi bi-pencil me-1"></i> Edit
+              </button>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush small">
+                <li class="list-group-item d-flex justify-content-between py-3">
+                  <span class="text-muted">Programme Code</span>
+                  <span class="fw-bold" id="display-progCode">SI262</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3">
+                  <span class="text-muted">Programme Name</span>
+                  <span class="fw-bold text-end" id="display-progName">Bachelor of Information Science (Hons.) Information Systems Management</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3">
+                  <span class="text-muted">Faculty</span>
+                  <span class="fw-bold text-end" id="display-faculty">College of Computing, Informatics & Media</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3">
+                  <span class="text-muted">Campus</span>
+                  <span class="fw-bold" id="display-campus">UiTM Puncak Perdana, Selangor</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3">
+                  <span class="text-muted">Mode / Current Semester</span>
+                  <span class="fw-bold" id="display-modeSem">Full-Time / Semester 4</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 3: Educational Background -->
+      <div class="card border-0 shadow-sm rounded-3">
+        <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+          <h5 class="fw-bold mb-0"><i class="bi bi-book-half text-warning me-2"></i>Educational Background</h5>
+          <button type="button" class="btn btn-outline-warning text-dark btn-sm" data-edit-section="education">
+            <i class="bi bi-pencil me-1"></i> Edit
+          </button>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" class="ps-4">Level</th>
+                  <th scope="col">Institution / Campus</th>
+                  <th scope="col">Programme / Qualification</th>
+                  <th scope="col">Performance / Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="ps-4 fw-bold">Diploma</td>
+                  <td id="display-dipInst">UiTM Kampus Samarahan, Sarawak</td>
+                  <td id="display-dipProg">CDIM110 (Diploma in Information Management)</td>
+                  <td><span class="badge bg-success" id="display-dipResult">CGPA 3.48</span></td>
+                </tr>
+                <tr>
+                  <td class="ps-4 fw-bold">High School</td>
+                  <td id="display-spmInst">SMK Beaufort II, Sabah</td>
+                  <td id="display-spmProg">Sijil Pelajaran Malaysia (SPM)</td>
+                  <td><span class="badge bg-primary" id="display-spmResult">5A, 2B, 1C</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+<footer class="mt-auto pt-4 pb-2 border-top text-center text-muted small">
+  <p class="mb-0">&copy; 2026 COMET Student Performance Tracker | Aliy Aiman bin Alimun (IMS566)</p>
+</footer>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
